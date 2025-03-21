@@ -26,7 +26,7 @@
                 </div>
             @else
                 <div class="table-responsive">
-                    <table class="table table-striped table-hover">
+                    <table class="table table-striped table-hover datatable">
                         <thead>
                             <tr>
                                 <th width="5%">ID</th>
@@ -84,7 +84,7 @@
                     </table>
                 </div>
                 
-                <div class="d-flex justify-content-center mt-4">
+                <div class="d-flex justify-content-center mt-4 pagination-links">
                     {{ $pricingPlans->links() }}
                 </div>
             @endif

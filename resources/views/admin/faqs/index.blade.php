@@ -20,20 +20,32 @@
 
     <div class="card shadow-sm">
         <div class="card-body">
+            @if($faqs->isEmpty())
+            <div class="text-center py-4">
+                <div class="mb-3">
+                    <i class="fas fa-question-circle fa-3x text-muted"></i>
+                </div>
+                <h4>No FAQs found</h4>
+                <p class="text-muted">Add your first FAQ to help your users find answers to common questions.</p>
+                <a href="{{ route('admin.faqs.create') }}" class="btn btn-primary mt-2">
+                    <i class="fas fa-plus"></i> Add New FAQ
+                </a>
+            </div>
+            @else
             <div class="table-responsive">
-                <table class="table table-striped table-hover">
+                <table class="table table-hover datatable">
                     <thead>
                         <tr>
-                            <th width="5%">#</th>
-                            <th width="25%">Question</th>
-                            <th width="35%">Answer</th>
-                            <th width="10%">Order</th>
-                            <th width="10%">Status</th>
-                            <th width="15%">Actions</th>
+                            <th>#</th>
+                            <th>Question</th>
+                            <th>Answer</th>
+                            <th>Order</th>
+                            <th>Status</th>
+                            <th>Actions</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @forelse($faqs as $faq)
+                        @foreach($faqs as $faq)
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
                                 <td>{{ Str::limit($faq->question, 50) }}</td>
@@ -45,36 +57,33 @@
                                     </span>
                                 </td>
                                 <td>
-                                    <div class="btn-group" role="group">
-                                        <a href="{{ route('admin.faqs.show', $faq) }}" class="btn btn-sm btn-info">
-                                            <i class="fas fa-eye"></i>
+                                    <div class="d-flex">
+                                        <a href="{{ route('admin.faqs.show', $faq) }}" class="btn btn-sm btn-outline-info me-2">
+                                            <i class="fas fa-eye"></i> View
                                         </a>
-                                        <a href="{{ route('admin.faqs.edit', $faq) }}" class="btn btn-sm btn-primary">
-                                            <i class="fas fa-edit"></i>
+                                        <a href="{{ route('admin.faqs.edit', $faq) }}" class="btn btn-sm btn-outline-primary me-2">
+                                            <i class="fas fa-edit"></i> Edit
                                         </a>
-                                        <form action="{{ route('admin.faqs.destroy', $faq) }}" method="POST" class="d-inline" 
+                                        <form action="{{ route('admin.faqs.destroy', $faq) }}" method="POST" 
                                               onsubmit="return confirm('Are you sure you want to delete this FAQ?');">
                                             @csrf
                                             @method('DELETE')
-                                            <button type="submit" class="btn btn-sm btn-danger">
-                                                <i class="fas fa-trash"></i>
+                                            <button type="submit" class="btn btn-sm btn-outline-danger">
+                                                <i class="fas fa-trash-alt"></i> Delete
                                             </button>
                                         </form>
                                     </div>
                                 </td>
                             </tr>
-                        @empty
-                            <tr>
-                                <td colspan="6" class="text-center py-4">No FAQs found.</td>
-                            </tr>
-                        @endforelse
+                        @endforeach
                     </tbody>
                 </table>
             </div>
 
-            <div class="d-flex justify-content-center mt-4">
+            <div class="mt-4 pagination-links">
                 {{ $faqs->links() }}
             </div>
+            @endif
         </div>
     </div>
 </div>

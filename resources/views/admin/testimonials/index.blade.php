@@ -17,7 +17,7 @@
             </div>
         @else
             <div class="table-responsive">
-                <table class="table table-striped table-hover">
+                <table class="table table-striped table-hover datatable">
                     <thead>
                         <tr>
                             <th width="5%">ID</th>
@@ -67,7 +67,9 @@
                 </table>
             </div>
             
-            {{ $testimonials->links() }}
+            <div class="pagination-links">
+                {{ $testimonials->links() }}
+            </div>
         @endif
     </div>
 </div>

@@ -17,7 +17,7 @@
             </div>
         @else
             <div class="table-responsive">
-                <table class="table table-striped table-hover">
+            <table class="table table-hover datatable">
                     <thead>
                         <tr>
                             <th width="5%">ID</th>
@@ -36,7 +36,10 @@
                                 <td>{{ $service->title }}</td>
                                 <td>{{ Str::limit($service->description, 100) }}</td>
                                 <td>
-                                    <i class="fas fa-{{ $service->icon }}" style="color: {{ $service->icon_color }}; background-color: {{ $service->background_color }}; padding: 8px; border-radius: 8px;"></i>
+                                    <div class="icon-container">
+                                        <i class="fas fa-{{ $service->icon }}"></i>
+                                        <small class="text-muted ms-2">{{ $service->icon }}</small>
+                                    </div>
                                 </td>
                                 <td>{{ $service->order }}</td>
                                 <td>
@@ -69,7 +72,9 @@
                 </table>
             </div>
             
-            {{ $services->links() }}
+            <div class="pagination-links">
+                {{ $services->links() }}
+            </div>
         @endif
     </div>
 </div>

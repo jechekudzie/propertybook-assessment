@@ -15,6 +15,9 @@
     
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- DataTables CSS -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css">
 
     <!-- Custom Admin CSS -->
     <style>
@@ -62,6 +65,28 @@
             box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
             padding: 1rem;
             margin-bottom: 1.5rem;
+        }
+        
+        /* Service icons styling */
+        .icon-container {
+            display: flex;
+            align-items: center;
+        }
+        
+        .icon-container i {
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+        
+        /* Allow custom colorization for service icons */
+        td .icon-container i {
+            background-color: rgba(66, 133, 244, 0.1);
+            color: #4285F4;
         }
     </style>
 </head>
@@ -180,8 +205,37 @@
         </div>
     </div>
 
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+    
     <!-- Bootstrap Bundle with Popper -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- DataTables JS -->
+    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
+    
+    <!-- Initialize DataTables -->
+    <script>
+        $(document).ready(function() {
+            $('.datatable').DataTable({
+                "pagingType": "simple_numbers",
+                "lengthMenu": [[10, 25, 50, 100, -1], [10, 25, 50, 100, "All"]],
+                "language": {
+                    "info": "Showing _START_ to _END_ of _TOTAL_ entries",
+                    "search": "Search:",
+                    "paginate": {
+                        "next": '<i class="fas fa-chevron-right"></i>',
+                        "previous": '<i class="fas fa-chevron-left"></i>'
+                    }
+                },
+                "drawCallback": function() {
+                    // Hide all Laravel pagination elements
+                    $('.pagination-links, div > nav > .pagination').hide();
+                }
+            });
+        });
+    </script>
     
     <!-- Additional Scripts -->
     @yield('scripts')

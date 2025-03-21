@@ -33,7 +33,7 @@
             </div>
             @else
             <div class="table-responsive">
-                <table class="table table-hover">
+                <table class="table table-hover datatable">
                     <thead>
                         <tr>
                             <th>Tab Name</th>
@@ -86,7 +86,7 @@
                 </table>
             </div>
             
-            <div class="mt-4">
+            <div class="mt-4 pagination-links">
                 {{ $features->links() }}
             </div>
             @endif

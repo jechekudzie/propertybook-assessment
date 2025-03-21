@@ -13,7 +13,8 @@ class CallToActionController extends Controller
      */
     public function index()
     {
-        //
+        $callToActions = CallToAction::latest()->paginate(10);
+        return view('admin.call-to-actions.index', compact('callToActions'));
     }
 
     /**
@@ -21,7 +22,7 @@ class CallToActionController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.call-to-actions.create');
     }
 
     /**
@@ -29,7 +30,22 @@ class CallToActionController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validated = $request->validate([
+            'title' => 'required|string|max:255',
+            'description' => 'required|string|max:1000',
+            'button_text' => 'required|string|max:50',
+            'button_url' => 'required|url|max:255',
+            'background_color' => 'required|string|max:20',
+            'active' => 'boolean',
+        ]);
+
+        // Set active to false if not provided
+        $validated['active'] = $request->has('active');
+        
+        CallToAction::create($validated);
+        
+        return redirect()->route('admin.call-to-actions.index')
+            ->with('success', 'Call to action created successfully.');
     }
 
     /**
@@ -37,7 +53,7 @@ class CallToActionController extends Controller
      */
     public function show(CallToAction $callToAction)
     {
-        //
+        return view('admin.call-to-actions.show', compact('callToAction'));
     }
 
     /**
@@ -45,7 +61,7 @@ class CallToActionController extends Controller
      */
     public function edit(CallToAction $callToAction)
     {
-        //
+        return view('admin.call-to-actions.edit', compact('callToAction'));
     }
 
     /**
@@ -53,7 +69,22 @@ class CallToActionController extends Controller
      */
     public function update(Request $request, CallToAction $callToAction)
     {
-        //
+        $validated = $request->validate([
+            'title' => 'required|string|max:255',
+            'description' => 'required|string|max:1000',
+            'button_text' => 'required|string|max:50',
+            'button_url' => 'required|url|max:255',
+            'background_color' => 'required|string|max:20',
+            'active' => 'boolean',
+        ]);
+
+        // Set active to false if not provided
+        $validated['active'] = $request->has('active');
+        
+        $callToAction->update($validated);
+        
+        return redirect()->route('admin.call-to-actions.index')
+            ->with('success', 'Call to action updated successfully.');
     }
 
     /**
@@ -61,6 +92,8 @@ class CallToActionController extends Controller
      */
     public function destroy(CallToAction $callToAction)
     {
-        //
+        $callToAction->delete();
+        return redirect()->route('admin.call-to-actions.index')
+            ->with('success', 'Call to action deleted successfully');
     }
 }

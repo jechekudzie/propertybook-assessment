@@ -7,7 +7,7 @@
     <div class="d-flex justify-content-between align-items-center mb-4">
         <h1 class="h3">Add New Call to Action</h1>
         <a href="{{ route('admin.call-to-actions.index') }}" class="btn btn-outline-secondary">
-            <i class="fas fa-arrow-left"></i> Back to CTAs
+            <i class="fas fa-arrow-left"></i> Back to Call to Actions
         </a>
     </div>
 
@@ -19,70 +19,84 @@
                 <div class="row mb-4">
                     <div class="col-md-8">
                         <div class="mb-3">
-                            <label for="title" class="form-label">Title <span class="text-danger">*</span></label>
-                            <input type="text" class="form-control @error('title') is-invalid @enderror" 
-                                   id="title" name="title" value="{{ old('title') }}" required>
+                            <label for="title" class="form-label">Title</label>
+                            <input type="text" name="title" id="title" class="form-control @error('title') is-invalid @enderror" value="{{ old('title') }}">
                             @error('title')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>
-
+                        
                         <div class="mb-3">
-                            <label for="subtitle" class="form-label">Subtitle</label>
-                            <textarea class="form-control @error('subtitle') is-invalid @enderror" 
-                                      id="subtitle" name="subtitle" rows="3">{{ old('subtitle') }}</textarea>
-                            @error('subtitle')
+                            <label for="description" class="form-label">Description</label>
+                            <textarea name="description" id="description" class="form-control @error('description') is-invalid @enderror" rows="4">{{ old('description') }}</textarea>
+                            @error('description')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>
                     </div>
                     
                     <div class="col-md-4">
-                        <div class="mb-3">
-                            <label for="button_text" class="form-label">Button Text <span class="text-danger">*</span></label>
-                            <input type="text" class="form-control @error('button_text') is-invalid @enderror" 
-                                   id="button_text" name="button_text" value="{{ old('button_text') }}" required>
-                            @error('button_text')
-                                <div class="invalid-feedback">{{ $message }}</div>
-                            @enderror
-                        </div>
-
-                        <div class="mb-3">
-                            <label for="button_link" class="form-label">Button Link <span class="text-danger">*</span></label>
-                            <input type="url" class="form-control @error('button_link') is-invalid @enderror" 
-                                   id="button_link" name="button_link" value="{{ old('button_link') }}" required>
-                            @error('button_link')
-                                <div class="invalid-feedback">{{ $message }}</div>
-                            @enderror
-                            <div class="form-text">Enter a full URL (e.g., https://example.com/page)</div>
-                        </div>
-                        
-                        <div class="mb-3">
-                            <div class="form-check form-switch">
-                                <input class="form-check-input" type="checkbox" id="active" name="active" value="1" 
-                                       {{ old('active', '1') == '1' ? 'checked' : '' }}>
-                                <label class="form-check-label" for="active">Active</label>
+                        <div class="card">
+                            <div class="card-header bg-light">
+                                <h4 class="h6 mb-0">Preview</h4>
                             </div>
-                            <div class="form-text">Only active Call to Actions will be displayed on the website.</div>
+                            <div class="card-body p-3" id="cta-preview" style="min-height: 150px; background-color: #f8f9fa;">
+                                <h3 id="preview-title" class="h5">Call to Action Title</h3>
+                                <p id="preview-description" class="small">Enter a description to see a preview here.</p>
+                                <a href="#" id="preview-button" class="btn btn-sm btn-primary">Button</a>
+                            </div>
                         </div>
                     </div>
                 </div>
                 
-                <!-- Preview Section -->
-                <div class="mb-4">
-                    <h4 class="h5 mb-3">Preview</h4>
-                    <div class="bg-light p-4 rounded">
-                        <div class="text-center">
-                            <h2 id="preview-title" class="h3 mb-2">Your Title Here</h2>
-                            <p id="preview-subtitle" class="mb-4">Your subtitle text will appear here</p>
-                            <button id="preview-button" class="btn btn-primary" type="button">Button Text</button>
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label for="button_text" class="form-label">Button Text</label>
+                        <input type="text" name="button_text" id="button_text" class="form-control @error('button_text') is-invalid @enderror" value="{{ old('button_text') }}">
+                        @error('button_text')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                    </div>
+                    
+                    <div class="col-md-6 mb-3">
+                        <label for="button_url" class="form-label">Button URL</label>
+                        <input type="url" name="button_url" id="button_url" class="form-control @error('button_url') is-invalid @enderror" value="{{ old('button_url') }}" placeholder="https://example.com">
+                        @error('button_url')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                    </div>
+                </div>
+                
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label for="background_color" class="form-label">Background Color</label>
+                        <div class="input-group">
+                            <span class="input-group-text p-0">
+                                <input type="color" class="form-control form-control-color border-0" id="color_picker" value="#f8f9fa">
+                            </span>
+                            <input type="text" name="background_color" id="background_color" class="form-control @error('background_color') is-invalid @enderror" value="{{ old('background_color', '#f8f9fa') }}">
+                        </div>
+                        @error('background_color')
+                            <div class="invalid-feedback d-block">{{ $message }}</div>
+                        @enderror
+                    </div>
+                    
+                    <div class="col-md-6 mb-3">
+                        <div class="mt-4">
+                            <div class="form-check">
+                                <input type="checkbox" class="form-check-input @error('active') is-invalid @enderror" id="active" name="active" value="1" {{ old('active', '1') == '1' ? 'checked' : '' }}>
+                                <label class="form-check-label" for="active">Active</label>
+                                @error('active')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
                         </div>
                     </div>
                 </div>
-
-                <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                
+                <div class="d-flex justify-content-end">
                     <button type="submit" class="btn btn-primary">
-                        <i class="fas fa-save"></i> Save Call to Action
+                        <i class="fas fa-save me-1"></i> Save Call to Action
                     </button>
                 </div>
             </form>
@@ -92,29 +106,57 @@
 
 @push('scripts')
 <script>
-    // Update preview on input change
     document.addEventListener('DOMContentLoaded', function() {
-        // Initial preview update
-        updatePreview();
+        const titleInput = document.getElementById('title');
+        const descriptionInput = document.getElementById('description');
+        const buttonTextInput = document.getElementById('button_text');
+        const buttonUrlInput = document.getElementById('button_url');
+        const bgColorInput = document.getElementById('background_color');
+        const colorPicker = document.getElementById('color_picker');
         
-        // Update on input changes
-        document.getElementById('title').addEventListener('input', updatePreview);
-        document.getElementById('subtitle').addEventListener('input', updatePreview);
-        document.getElementById('button_text').addEventListener('input', updatePreview);
+        const previewTitle = document.getElementById('preview-title');
+        const previewDescription = document.getElementById('preview-description');
+        const previewButton = document.getElementById('preview-button');
+        const previewContainer = document.getElementById('cta-preview');
         
-        function updatePreview() {
-            // Get values
-            const title = document.getElementById('title').value || 'Your Title Here';
-            const subtitle = document.getElementById('subtitle').value || 'Your subtitle text will appear here';
-            const buttonText = document.getElementById('button_text').value || 'Button Text';
-            
-            // Update preview elements
-            document.getElementById('preview-title').textContent = title;
-            document.getElementById('preview-subtitle').textContent = subtitle;
-            document.getElementById('preview-button').textContent = buttonText;
+        // Update preview when inputs change
+        titleInput.addEventListener('input', function() {
+            previewTitle.textContent = this.value || 'Call to Action Title';
+        });
+        
+        descriptionInput.addEventListener('input', function() {
+            previewDescription.textContent = this.value || 'Enter a description to see a preview here.';
+        });
+        
+        buttonTextInput.addEventListener('input', function() {
+            previewButton.textContent = this.value || 'Button';
+        });
+        
+        buttonUrlInput.addEventListener('input', function() {
+            previewButton.href = this.value || '#';
+        });
+        
+        // Sync color picker with input
+        colorPicker.addEventListener('input', function() {
+            bgColorInput.value = this.value;
+            previewContainer.style.backgroundColor = this.value;
+        });
+        
+        bgColorInput.addEventListener('input', function() {
+            colorPicker.value = this.value;
+            previewContainer.style.backgroundColor = this.value;
+        });
+        
+        // Initialize with any existing values
+        if (titleInput.value) previewTitle.textContent = titleInput.value;
+        if (descriptionInput.value) previewDescription.textContent = descriptionInput.value;
+        if (buttonTextInput.value) previewButton.textContent = buttonTextInput.value;
+        if (buttonUrlInput.value) previewButton.href = buttonUrlInput.value;
+        if (bgColorInput.value) {
+            previewContainer.style.backgroundColor = bgColorInput.value;
+            colorPicker.value = bgColorInput.value;
         }
     });
 </script>
 @endpush
-
 @endsection 

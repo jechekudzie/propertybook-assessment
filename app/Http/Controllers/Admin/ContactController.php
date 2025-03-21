@@ -13,7 +13,8 @@ class ContactController extends Controller
      */
     public function index()
     {
-        //
+        $contacts = Contact::latest()->paginate(10);
+        return view('admin.contacts.index', compact('contacts'));
     }
 
     /**
@@ -21,7 +22,7 @@ class ContactController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.contacts.create');
     }
 
     /**
@@ -29,7 +30,26 @@ class ContactController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validated = $request->validate([
+            'address' => 'required|string|max:500',
+            'phone1' => 'required|string|max:20',
+            'phone2' => 'nullable|string|max:20',
+            'email1' => 'required|email|max:100',
+            'email2' => 'nullable|email|max:100',
+            'social_twitter' => 'nullable|url|max:255',
+            'social_facebook' => 'nullable|url|max:255',
+            'social_instagram' => 'nullable|url|max:255',
+            'social_linkedin' => 'nullable|url|max:255',
+            'active' => 'boolean',
+        ]);
+
+        // Set active to false if not provided
+        $validated['active'] = $request->has('active');
+        
+        Contact::create($validated);
+        
+        return redirect()->route('admin.contacts.index')
+            ->with('success', 'Contact information created successfully.');
     }
 
     /**
@@ -37,7 +57,7 @@ class ContactController extends Controller
      */
     public function show(Contact $contact)
     {
-        //
+        return view('admin.contacts.show', compact('contact'));
     }
 
     /**
@@ -45,7 +65,7 @@ class ContactController extends Controller
      */
     public function edit(Contact $contact)
     {
-        //
+        return view('admin.contacts.edit', compact('contact'));
     }
 
     /**
@@ -53,7 +73,26 @@ class ContactController extends Controller
      */
     public function update(Request $request, Contact $contact)
     {
-        //
+        $validated = $request->validate([
+            'address' => 'required|string|max:500',
+            'phone1' => 'required|string|max:20',
+            'phone2' => 'nullable|string|max:20',
+            'email1' => 'required|email|max:100',
+            'email2' => 'nullable|email|max:100',
+            'social_twitter' => 'nullable|url|max:255',
+            'social_facebook' => 'nullable|url|max:255',
+            'social_instagram' => 'nullable|url|max:255',
+            'social_linkedin' => 'nullable|url|max:255',
+            'active' => 'boolean',
+        ]);
+
+        // Set active to false if not provided
+        $validated['active'] = $request->has('active');
+        
+        $contact->update($validated);
+        
+        return redirect()->route('admin.contacts.index')
+            ->with('success', 'Contact information updated successfully.');
     }
 
     /**
@@ -61,6 +100,8 @@ class ContactController extends Controller
      */
     public function destroy(Contact $contact)
     {
-        //
+        $contact->delete();
+        return redirect()->route('admin.contacts.index')
+            ->with('success', 'Contact deleted successfully');
     }
 }

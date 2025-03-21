@@ -21,21 +21,28 @@
     <div class="card shadow-sm">
         <div class="card-body">
             @if($stats->isEmpty())
-                <div class="alert alert-info">
-                    No stats found. Click the "Add New Stat" button to create one.
+                <div class="text-center py-4">
+                    <div class="mb-3">
+                        <i class="fas fa-chart-bar fa-3x text-muted"></i>
+                    </div>
+                    <h4>No stats found</h4>
+                    <p class="text-muted">Add your first stat to showcase important metrics to your users.</p>
+                    <a href="{{ route('admin.stats.create') }}" class="btn btn-primary mt-2">
+                        <i class="fas fa-plus"></i> Add New Stat
+                    </a>
                 </div>
             @else
                 <div class="table-responsive">
-                    <table class="table table-striped table-hover">
+                    <table class="table table-hover datatable">
                         <thead>
                             <tr>
-                                <th width="5%">ID</th>
-                                <th width="20%">Title</th>
-                                <th width="20%">Value</th>
-                                <th width="15%">Icon</th>
-                                <th width="10%">Order</th>
-                                <th width="10%">Status</th>
-                                <th width="20%">Actions</th>
+                                <th>ID</th>
+                                <th>Title</th>
+                                <th>Value</th>
+                                <th>Icon</th>
+                                <th>Order</th>
+                                <th>Status</th>
+                                <th>Actions</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -64,18 +71,19 @@
                                         @endif
                                     </td>
                                     <td>
-                                        <div class="btn-group" role="group">
-                                            <a href="{{ route('admin.stats.edit', $stat->id) }}" class="btn btn-sm btn-primary">
-                                                <i class="fas fa-edit"></i>
+                                        <div class="d-flex">
+                                            <a href="{{ route('admin.stats.edit', $stat->id) }}" class="btn btn-sm btn-outline-primary me-2">
+                                                <i class="fas fa-edit"></i> Edit
                                             </a>
-                                            <a href="{{ route('admin.stats.show', $stat->id) }}" class="btn btn-sm btn-info">
-                                                <i class="fas fa-eye"></i>
+                                            <a href="{{ route('admin.stats.show', $stat->id) }}" class="btn btn-sm btn-outline-info me-2">
+                                                <i class="fas fa-eye"></i> View
                                             </a>
-                                            <form action="{{ route('admin.stats.destroy', $stat->id) }}" method="POST" class="d-inline" onsubmit="return confirm('Are you sure you want to delete this stat?');">
+                                            <form action="{{ route('admin.stats.destroy', $stat->id) }}" method="POST" 
+                                                onsubmit="return confirm('Are you sure you want to delete this stat?');">
                                                 @csrf
                                                 @method('DELETE')
-                                                <button type="submit" class="btn btn-sm btn-danger">
-                                                    <i class="fas fa-trash"></i>
+                                                <button type="submit" class="btn btn-sm btn-outline-danger">
+                                                    <i class="fas fa-trash-alt"></i> Delete
                                                 </button>
                                             </form>
                                         </div>
@@ -86,7 +94,7 @@
                     </table>
                 </div>
                 
-                <div class="d-flex justify-content-center mt-4">
+                <div class="mt-4 pagination-links">
                     {{ $stats->links() }}
                 </div>
             @endif
