@@ -5,17 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel') }} Admin - @yield('title', 'Dashboard')</title>
+    <title>{{ config('app.name', 'iLanding') }} Admin - @yield('title', 'Dashboard')</title>
 
     <!-- Fonts -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap">
 
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    
+
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
+
     <!-- DataTables CSS -->
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css">
 
@@ -25,54 +25,54 @@
             font-family: 'Nunito', sans-serif;
             background-color: #f8f9fa;
         }
-        
+
         .sidebar {
             min-height: 100vh;
             box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
             background-color: #343a40;
         }
-        
+
         .sidebar .nav-link {
             color: rgba(255, 255, 255, 0.8);
             padding: 0.75rem 1.25rem;
             font-weight: 500;
         }
-        
+
         .sidebar .nav-link:hover {
             color: #fff;
             background-color: rgba(255, 255, 255, 0.1);
         }
-        
+
         .sidebar .nav-link.active {
             color: #fff;
             background-color: #4285F4;
         }
-        
+
         .sidebar .nav-link i {
             margin-right: 0.5rem;
         }
-        
+
         .content-wrapper {
             padding: 20px;
         }
-        
+
         .card {
             box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
         }
-        
+
         .admin-header {
             background-color: #fff;
             box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
             padding: 1rem;
             margin-bottom: 1.5rem;
         }
-        
+
         /* Service icons styling */
         .icon-container {
             display: flex;
             align-items: center;
         }
-        
+
         .icon-container i {
             width: 30px;
             height: 30px;
@@ -82,7 +82,7 @@
             border-radius: 4px;
             font-size: 14px;
         }
-        
+
         /* Allow custom colorization for service icons */
         td .icon-container i {
             background-color: rgba(66, 133, 244, 0.1);
@@ -207,14 +207,14 @@
 
     <!-- jQuery -->
     <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
-    
+
     <!-- Bootstrap Bundle with Popper -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
-    
+
     <!-- DataTables JS -->
     <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
-    
+
     <!-- Initialize DataTables -->
     <script>
         $(document).ready(function() {
@@ -236,8 +236,8 @@
             });
         });
     </script>
-    
+
     <!-- Additional Scripts -->
     @yield('scripts')
 </body>
-</html> 
+</html>
