@@ -115,7 +115,15 @@
                     
                     <div id="features-container">
                         @php
-                            $features = old('features', $pricingPlan->features ? json_decode($pricingPlan->features, true) : []);
+                            $features = old('features', $pricingPlan->features);
+                            // Check if features is already an array, if not and it's a string, decode it
+                            if (!is_array($features) && is_string($features)) {
+                                $features = json_decode($features, true);
+                            }
+                            // If still not an array (null or other type), set it to empty array
+                            if (!is_array($features)) {
+                                $features = [];
+                            }
                             $featureCount = count($features);
                         @endphp
                         
